@@ -7,9 +7,16 @@
   "types": "./dist/index.d.ts",
   "description": "",
   "exports": {
-    "types": "./dist/index.d.ts",
-    "import": "./dist/index.js",
-    "require": "./dist/index.cjs"
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js",
+      "require": "./dist/index.cjs"
+    },
+    "./types": {
+      "types": "./dist/types.d.ts",
+      "import": "./dist/types.js",
+      "require": "./dist/types.cjs"
+    }
   },
   "scripts": {
     "build": "bun run build.ts",
@@ -30,7 +37,11 @@
   "bugs": "https://github.com/woaitsAryan/async-operation-queue/issues",
   "author": "Aryan Bharti <workaryanbharti@gmail.com>",
   "devDependencies": {
+    "@types/bun": "^1.2.2",
     "bun-plugin-dts": "^0.3.0",
-    "@types/bun": "^1.2.2"
+    "winston": "^3.17.0"
+  },
+  "dependencies": {
+    "bullmq": "^5.40.2"
   }
 }
