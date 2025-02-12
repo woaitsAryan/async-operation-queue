@@ -1,6 +1,6 @@
 import type { JobsOptions as BullMQJobOptions, WorkerOptions as BullMQWorkerOptions, RedisClient as BullMQRedisClient } from "bullmq";
 
-export type FunctionRegistryType = Record<string, (...args: unknown[]) => Promise<unknown>>;
+export type FunctionRegistryType = Record<string, (...args: any[]) => Promise<any>>;
 
 export type JobData<S extends FunctionRegistryType> = {
   functionName: keyof S;
@@ -8,8 +8,8 @@ export type JobData<S extends FunctionRegistryType> = {
 }
 
 export interface DefaultLogger {
-  info: (message: string, ...args: unknown[]) => void;
-  error: (message: string, ...args: unknown[]) => void;
+  info: (message: string, ...args: any[]) => void;
+  error: (message: string, ...args: any[]) => void;
 }
 
 export type JobsOptions = BullMQJobOptions;

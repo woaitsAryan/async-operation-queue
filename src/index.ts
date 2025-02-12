@@ -85,7 +85,7 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
         try {
           const result = await func(...args);
           this.logger.info(`Job completed: ${String(functionName)}`);
-          return result;
+          if (result) return result;
         } catch (error) {
           this.logger.error(`Job failed: ${String(functionName)}`, error);
           throw error;

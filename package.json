@@ -1,7 +1,7 @@
 {
   "name": "async-operation-queue",
   "type": "module",
-  "version": "1.0.2",
+  "version": "1.0.4 ",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -37,6 +37,7 @@
   "bugs": "https://github.com/woaitsAryan/async-operation-queue/issues",
   "author": "Aryan Bharti <workaryanbharti@gmail.com>",
   "devDependencies": {
+    "@biomejs/biome": "1.9.4",
     "@types/bun": "^1.2.2",
     "bun-plugin-dts": "^0.3.0",
     "winston": "^3.17.0"
