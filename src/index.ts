@@ -1,12 +1,12 @@
-import { type JobsOptions, Queue, type RedisClient, Worker, type WorkerOptions } from "bullmq";
-import type { DefaultLogger, FunctionRegistryType, JobData } from "./types";
+import { Queue, Worker } from "bullmq";
+import type { DefaultLogger, FunctionRegistryType, JobData, JobsOptions, WorkerOptions, RedisClient } from "./types";
 import type { Logger } from 'winston';
 
 export class AsyncOperationQueue<R extends FunctionRegistryType> {
   private worker?: Worker;
   private queue: Queue;
   private registry: R;
-  private workerOptions: Omit<WorkerOptions, 'connection'>;
+  private workerOptions: WorkerOptions;
   private jobOptions: JobsOptions;
   private isSilent: boolean;
   private logger: Logger | DefaultLogger;
@@ -17,7 +17,7 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
   constructor(
     functionRegistery: R,
     redis: RedisClient,
-    workerOptions: Omit<WorkerOptions, 'connection'>,
+    workerOptions: WorkerOptions,
     jobOptions: JobsOptions,
     options?: {
       isSilent?: boolean;
