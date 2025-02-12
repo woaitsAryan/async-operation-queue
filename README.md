@@ -92,6 +92,7 @@ operationQueue = new AsyncOperationQueue(functionRegistry, redisClient, {
   logger: winstonLogger,
   queueName: "my-queue",
   jobName: "my-job",
+  isSilent: false
 });
 ```
 
