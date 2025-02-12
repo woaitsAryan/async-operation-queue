@@ -115,13 +115,4 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
   }
 }
 
-// let FunctionQueueSingleton: FunctionQueue<FunctionRegistryType> | null = null;
-
-// export const getFunctionQueueInstance = (): FunctionQueue<FunctionRegistryType> => {
-//   if (!FunctionQueueSingleton) {
-//     FunctionQueueSingleton = new FunctionQueue(functionRegistry, redisClient, workerOptions, jobOptions);
-
-//     FunctionQueueSingleton.addJob("classifyEmotion", ["dpoasds", "dopsadks"])
-//   }
-//   return FunctionQueueSingleton;
-// };
+export type { DefaultLogger, FunctionRegistryType, JobData, JobsOptions, WorkerOptions, RedisClient } 
