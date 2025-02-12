@@ -5,7 +5,8 @@ const defaultBuildConfig: BuildConfig = {
   entrypoints: ['./src/index.ts', './src/types.ts'],
   outdir: './dist',
   target: 'node',
-  minify: true
+  minify: true,
+  sourcemap: 'none',
 }
 
 await Promise.all([
