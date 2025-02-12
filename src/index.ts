@@ -17,9 +17,9 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
   constructor(
     functionRegistery: R,
     redis: RedisClient,
-    workerOptions: WorkerOptions,
-    jobOptions: JobsOptions,
     options?: {
+      jobOptions?: JobsOptions,
+      workerOptions?: WorkerOptions,
       isSilent?: boolean;
       logger?: Logger;
       queueName?: string;
@@ -31,9 +31,9 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
     });
     this.redisClient = redis;
     this.registry = functionRegistery;
-    this.jobOptions = jobOptions;
+    this.jobOptions = options?.jobOptions || {};
     this.queue = functionsQueue;
-    this.workerOptions = workerOptions;
+    this.workerOptions = options?.workerOptions || {};
     this.isSilent = options?.isSilent ?? false;
     this.queueName = options?.queueName ?? "async-operation-queue";
     this.jobName = options?.jobName ?? "async-operation-job";
