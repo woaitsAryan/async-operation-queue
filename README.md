@@ -62,12 +62,20 @@ Finally, enqueue a job with the function name and arguments.
 
 ```typescript
 
-operationQueue.addJob("asyncOperation1", ["arg1", 2]);
+operationQueue.push("asyncOperation1", ["arg1", 2]);
 ```
 
 That's it! The job will be executed asynchronously in the background.
 
-The addJob method is fully type-safe and will throw a compile-time error if the function name or arguments are incorrect.
+The push method is fully type-safe and will throw a compile-time error if the function name or arguments are incorrect.
+
+### Step 4: Shutdown the Queue
+
+You can shutdown the queue when you're done. (for example: when the server gracefully shuts down)
+
+```typescript
+operationQueue.shutdown();
+```
 
 ## Additional configuration
 
