@@ -57,7 +57,7 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
     this.start();
   }
 
-  public async addJob<T extends keyof R>(functionName: T, args: Parameters<R[T]>, priority?: JobsOptions['priority'], attempts?: JobsOptions['attempts']) {
+  public async push<T extends keyof R>(functionName: T, args: Parameters<R[T]>, priority?: JobsOptions['priority'], attempts?: JobsOptions['attempts']) {
     try {
       await this.queue.add(
         this.jobName,
