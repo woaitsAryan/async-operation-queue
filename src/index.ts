@@ -1,5 +1,5 @@
 import { Queue, Worker } from "bullmq";
-import type { DefaultLogger, FunctionRegistryType, JobData, CommonJobsOptions, WorkerOptions, RedisClient, QueueOptions } from "./types";
+import type { DefaultLogger, FunctionRegistryType, JobData, JobsOptions, WorkerOptions, RedisClient, QueueOptions } from "./types";
 import type { Logger } from 'winston';
 
 export class AsyncOperationQueue<R extends FunctionRegistryType> {
@@ -7,7 +7,7 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
   private queue: Queue;
   private registry: R;
   private workerOptions: WorkerOptions;
-  private jobOptions: CommonJobsOptions;
+  private jobOptions: JobsOptions;
   private isSilent: boolean;
   private logger: Logger | DefaultLogger;
   private jobName: string;
@@ -18,9 +18,9 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
     functionRegistery: R,
     redis: RedisClient,
     options?: {
+      jobOptions?: JobsOptions,
       workerOptions?: WorkerOptions,
-      commonJobOptions?: CommonJobsOptions,
-      queueOptions?: QueueOptions;
+      queueOptions?: QueueOptions,
       isSilent?: boolean;
       logger?: Logger;
       queueName?: string;
@@ -33,7 +33,7 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
     });
     this.redisClient = redis;
     this.registry = functionRegistery;
-    this.jobOptions = options?.commonJobOptions || {};
+    this.jobOptions = options?.jobOptions || {};
     this.queue = functionsQueue;
     this.workerOptions = options?.workerOptions || {};
     this.isSilent = options?.isSilent ?? false;
@@ -57,14 +57,12 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
     this.start();
   }
 
-  public async addJob<T extends keyof R>(functionName: T, args: Parameters<R[T]['handler']>) {
+  public async addJob<T extends keyof R>(functionName: T, args: Parameters<R[T]>, priority?: JobsOptions['priority'], attempts?: JobsOptions['attempts']) {
     try {
-      const functionConfig = this.registry[functionName];
-
       await this.queue.add(
         this.jobName,
         { functionName, args },
-        { removeOnComplete: true, removeOnFail: true, ...this.jobOptions, priority: functionConfig.priority, attempts: functionConfig.attempts }
+        { removeOnComplete: true, removeOnFail: true, ...this.jobOptions, priority, attempts }
       );
       this.logger.info(`Job added to queue: ${String(functionName)}`);
     } catch (error) {
@@ -79,7 +77,7 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
         const { functionName, args } = job.data;
         this.logger.info(`Processing job: ${String(functionName)}`);
 
-        const func = this.registry[functionName].handler;
+        const func = this.registry[functionName];
         if (!func) {
           const errorMsg = `Function ${String(functionName)} is not registered.`;
           this.logger.error(errorMsg);
@@ -119,4 +117,4 @@ export class AsyncOperationQueue<R extends FunctionRegistryType> {
   }
 }
 
-export type { DefaultLogger, FunctionRegistryType, JobData, CommonJobsOptions, WorkerOptions, RedisClient, QueueOptions } 
+export type { DefaultLogger, FunctionRegistryType, JobData, JobsOptions, WorkerOptions, RedisClient } 
