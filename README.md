@@ -107,4 +107,5 @@ operationQueue = new AsyncOperationQueue(functionRegistry, redisClient, {
 For workerOptions and jobOptions, you can refer to the BullMQ documentation for more information.
 
 1. Worker options: https://api.docs.bullmq.io/interfaces/v4.WorkerOptions.html. I've choosen to omit the connection type from this for internal connection
-2. Job options: https://api.docs.bullmq.io/interfaces/v4.WorkerOptions.html
+2. Job options: https://api.docs.bullmq.io/interfaces/v5.BaseJobOptions.html
+3. Queue options: https://api.docs.bullmq.io/interfaces/v5.QueueOptions.html
