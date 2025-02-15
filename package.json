@@ -1,7 +1,7 @@
 {
   "name": "async-operation-queue",
   "type": "module",
-  "version": "1.0.9",
+  "version": "1.0.10",
   "main": "./dist/index.cjs",
   "module": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -21,7 +21,19 @@
     "dist"
   ],
   "keywords": [
-    "bun"
+    "bun",
+    "bullmq",
+    "async",
+    "operation",
+    "queue",
+    "job",
+    "worker",
+    "task",
+    "request",
+    "express",
+    "honojs",
+    "fastify",
+    "nestjs"
   ],
   "license": "MIT",
   "homepage": "https://github.com/woaitsAryan/async-operation-queue#readme",
